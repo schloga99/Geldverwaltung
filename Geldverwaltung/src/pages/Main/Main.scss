@@ -1,1 +1,8 @@
-﻿
+﻿.scrollable {
+  height: 250px;
+  border: 2px solid black;
+}
+.no-scroll .scroll-content {
+  overflow: hidden;
+}
+

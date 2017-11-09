@@ -14,4 +14,11 @@ export class MainPage {
     onLink(url: string) {
         window.open(url);
     }
+    MinusListItem() {
+
+    }
+    PlusListItem() {
+
+    }
 }
+

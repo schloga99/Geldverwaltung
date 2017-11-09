@@ -1,9 +1,55 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <div>Content goes here.</div>
-</body>
-</html>
+﻿<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Geldverwaltung</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
+  <ion-item>
+    <ion-label style="text-align:center; font-weight:bold; ">Umsatz diesen Monat:</ion-label>
+  </ion-item>
+  <ion-label>Budget: </ion-label>
+  <ion-item>
+    <ion-range [(ngModel)]="singleValue">
+      <ion-label range-left>0</ion-label>
+      <ion-label range-right>budget</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-label>Übriges Budget für Heute:</ion-label>
+  <ion-label>Übriges Budget für diesen Monat:</ion-label>
+  <ion-scroll class="scrollable" scrollY="true">
+    <ion-list scroll="true">
+      <ion-item>
+        <ion-label item-left>Einkauf1....</ion-label>
+        <ion-label id="money" item-right>900 €</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Einkauftest2....</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Einkauftest3....</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Einkauftest4....</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Einkauftest5....</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Einkauftest6....</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-scroll>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div style=" display: flex;">
+      <button ion-button full style="margin-right:5px;" (tap)="PlusListItem()">Add</button>
+      <button ion-button full  (tap)="MinusListItem()">Delete</button>
+    </div>
+
+  </ion-toolbar>
+
+</ion-footer>
