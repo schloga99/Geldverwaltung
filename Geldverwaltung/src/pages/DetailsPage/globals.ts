@@ -2,10 +2,12 @@
 
 @Injectable()
 export class GlobalVars {
-    budget: number =0;
-    aktlbudget: number =0;
+    budget: any;
+    aktlbudget: any;
 
     constructor() {
+        this.budget = "";
+      
     }
     public setbudget(value) {
         this.budget = value;

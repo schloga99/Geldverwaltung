@@ -1,0 +1,25 @@
+﻿<ion-content padding class="content" no-scroll style="overflow:hidden" scroll="false">
+
+  <div>
+
+    <h1 style="padding-top:0.2em; padding-left:0.2em;">Listeintrag</h1>
+
+    <ion-item>
+      <ion-label style="font-size: medium" color="dark" stacked>Überschrift:</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: medium" color="dark" stacked>Betrag des Einkaufs: </ion-label>
+      <ion-input type="number"> </ion-input>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label style="font-size: medium" color="dark" stacked>Kommentar:</ion-label>
+      <ion-textarea rows="9" maxLength="600"></ion-textarea>
+    </ion-item>
+
+    <div style=" display: flex;">
+      <button ion-button full style="margin-right:5px;" (click)="speichern()">Speichern</button>
+      <button ion-button full (click)="zurueck()">Zurück</button>
+    </div>
+  </div>
+</ion-content>

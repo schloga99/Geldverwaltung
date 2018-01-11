@@ -12,25 +12,25 @@
       <!-- item 2 -->
     </ion-col>
   </ion-row>
-  <!--<ion-row>
+  <ion-row>
     <ion-col >
       <ion-item>
         <ion-label stacked>Budgetausgabe pro Tag:</ion-label>
         <ion-input placeholder="Budgetausgabe pro Tag" type="number" [(ngModel)]="budgetproTag" (ngModelChange)="onchangebudgetproTag()" value=""></ion-input>
       </ion-item>
+      <!-- item 2 -->
     </ion-col>
-  </ion-row>-->
+  </ion-row>
   <ion-item>
-    <ion-range readonly disabled max="{{shownbudget | number:'.2'}}"  [(ngModel)]="singleValue">
+    <ion-range readonly disabled max="{{shownbudget}}" [(ngModel)]="singleValue">
       <ion-label range-left>0</ion-label>
-      <ion-label range-right>{{shownbudget | number:'.2'}} €</ion-label>
+      <ion-label range-right>{{shownbudget}}</ion-label>
     </ion-range>
   </ion-item>
-  <ion-label id="budgetday">Ø Budget für diesen Monat: {{durchschnittsbudgetmonat | number:'.2' }} €</ion-label>
-  <ion-label id="budgetmonth">Übriges Budget für diesen Monat: {{shownbudget | number:'.2'}} €</ion-label>
+  <ion-label id="budgetday">Übriges Budget für Heute:</ion-label>
+  <ion-label id="budgetmonth">Übriges Budget für diesen Monat:</ion-label>
   <ion-scroll class="scrollable" scrollY="true">
     <ion-list scroll="true">
-      
       <ion-item>
         <ion-label item-left>Einkauf1....</ion-label>
         <ion-label id="money" item-right>900€</ion-label>
