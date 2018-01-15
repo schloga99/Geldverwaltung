@@ -6,15 +6,15 @@
 
     <ion-item>
       <ion-label style="font-size: medium" color="dark" stacked>Überschrift:</ion-label>
-      <ion-input></ion-input>
+      <ion-input Placeholder="Darf nicht leer sein" type="text" [(ngModel)]="ueberschrift" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label style="font-size: medium" color="dark" stacked>Betrag des Einkaufs: </ion-label>
-      <ion-input type="number"> </ion-input>
+      <ion-label style="font-size: medium" color="dark" stacked>Betrag des Einkaufs in Euro: </ion-label>
+      <ion-input Placeholder="Darf nicht leer sein" [(ngModel)]="betrag"  type="number"></ion-input>
     </ion-item>
     <ion-item no-lines>
       <ion-label style="font-size: medium" color="dark" stacked>Kommentar:</ion-label>
-      <ion-textarea rows="9" maxLength="600"></ion-textarea>
+      <ion-textarea [(ngModel)]="kommentar"  rows="9" maxLength="600"></ion-textarea>
     </ion-item>
 
     <div style=" display: flex;">
