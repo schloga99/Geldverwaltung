@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "2.2.1",
     "@angular/platform-server": "2.2.1",
     "@ionic/storage": "1.1.7",
+    "highcharts": "^6.0.4",
     "ionic-angular": "2.0.1",
     "ionic-native": "2.4.1",
     "ionicons": "3.0.0",
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.1.0",
-    "typescript": "2.0.9"
+    "typescript": "^2.0.9"
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
@@ -41,5 +42,9 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],
-  "-vs-binding": { "BeforeBuild": [ "ionic:build" ] }
+  "-vs-binding": {
+    "BeforeBuild": [
+      "ionic:build"
+    ]
+  }
 }

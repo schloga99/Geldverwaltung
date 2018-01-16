@@ -20,7 +20,7 @@ export class DetailsPage implements OnInit {
     ngOnInit() {
         //this.ueberschrift = "";
         //this.betrag = 0;
-        this.kommentar = "";
+        //this.kommentar = "";
     }
 
     onLink(url: string) {

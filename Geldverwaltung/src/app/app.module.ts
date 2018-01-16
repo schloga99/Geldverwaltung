@@ -4,12 +4,13 @@ import { MyApp } from './app.component';
 import { MainPage } from '../pages/Main/Main';
 import { GlobalVars } from '../providers/globals';
 import { DetailsPage } from '../pages/DetailsPage/Details';
-
+import { ModalPage } from '../pages/ModalPage/Modal';
 @NgModule({
     declarations: [
         MyApp,
         MainPage,
-        DetailsPage
+        DetailsPage,
+        ModalPage
     ],
     imports: [
         IonicModule.forRoot(MyApp)
@@ -20,7 +21,8 @@ import { DetailsPage } from '../pages/DetailsPage/Details';
     entryComponents: [
         MyApp,
         MainPage,
-        DetailsPage
+        DetailsPage,
+        ModalPage
     ],
     providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, GlobalVars]
 })

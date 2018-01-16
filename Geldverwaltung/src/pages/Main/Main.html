@@ -1,55 +1,62 @@
-﻿<ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
-  <ion-title>Geldverwaltung</ion-title>
-  <ion-item>
-    <ion-label style="text-align:center; font-weight:bold; ">Umsatz diesen Monat:</ion-label>
-  </ion-item>
-  <ion-row>
-    <ion-col width-40>
-      <ion-item>
-        <ion-label stacked>Budget:</ion-label>
-        <ion-input placeholder="Budgeteingabe" type="number" [(ngModel)]="budget" (ngModelChange)="onchangebudget()" value=""></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-item>
-    <ion-range readonly disabled max="{{shownbudget | number:'.2'}}" [(ngModel)]="singleValue">
-      <ion-label range-left>0</ion-label>
-      <ion-label range-right>{{shownbudget | number:'.2'}} €</ion-label>
-    </ion-range>
-  </ion-item>
-  <ion-label id="budgetday">Ø Budget pro Tag für diesen Monat: {{durchschnittsbudgetmonat | number:'.2' }} €</ion-label>
-  <ion-label id="budgetmonth">Übriges Budget für diesen Monat: {{shownbudget | number:'.2'}} €</ion-label>
-  <ion-scroll class="scrollable" scrollY="true">
-    <ion-list scroll="true">
-      <!--<ion-item *ngFor="let item of einkaufsliste; let idx=index">
-        <ion-label item-start >{{item.ueberschrift}}</ion-label>
-        <ion-label item-right>{{item.betrag}} €</ion-label>
-      </ion-item>-->
-      <ion-item-sliding *ngFor="let item of einkaufsliste; let idx=index">
+﻿<ion-header>
+  <ion-navbar primary>
+    <ion-title>Geldverwaltung</ion-title>
+    <ion-buttons right>
+      <button large (click)="showStatistikPage()" >
+        <ion-icon style="zoom:2.0;"  ios="ios-clipboard" md="md-clipboard"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">  
+    <ion-item>
+      <ion-label style="text-align:center; font-weight:bold; ">für den Monat {{aktlmonth}}</ion-label>
+    </ion-item>
+    <ion-row>
+      <ion-col width-40>
         <ion-item>
-          <ion-label item-start>{{item.ueberschrift}}</ion-label>
-          <ion-label item-right>{{item.betrag}} €</ion-label>
+          <ion-label stacked>Budget:</ion-label>
+          <ion-input placeholder="Budgeteingabe" type="number" [(ngModel)]="budget" (ngModelChange)="onchangebudget()" value=""></ion-input>
         </ion-item>
-        <ion-item-options>
-          <button ion-button icon-only (click)="showNote(item, idx)" light>
-            <ion-icon name="paper"></ion-icon>
-          </button>
-          <button ion-button icon-only (click)="deleteNote(item)" danger>
-            <ion-icon name="trash"></ion-icon>
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
+      </ion-col>
+    </ion-row>
+    <ion-item>
+      <ion-range readonly disabled max="{{shownbudget | number:'.2'}}" [(ngModel)]="singleValue">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>{{shownbudget | number:'.2'}} €</ion-label>
+      </ion-range>
+    </ion-item>
+    <ion-label id="budgetday">Ø Budget pro Tag für diesen Monat: {{durchschnittsbudgetmonat | number:'.2' }} €</ion-label>
+    <ion-label id="budgetmonth">Übriges Budget für diesen Monat: {{shownbudget | number:'.2'}} €</ion-label>
+    <ion-scroll class="scrollable" scrollY="true">
+      <ion-list scroll="true">
+        <ion-item-sliding *ngFor="let item of einkaufsliste; let idx=index">
+          <ion-item>
+            it
+            <ion-label item-start>{{item.ueberschrift}}</ion-label>
+            <ion-label item-right>{{item.betrag}} €</ion-label>
+          </ion-item>
+          <ion-item-options>
+            <button ion-button icon-only (click)="showNote(item, idx)" light>
+              <ion-icon name="paper"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="deleteNote(item)" danger>
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-scroll>
 
+    <ion-grid style="bottom:0; " ion-fixed>
+      <ion-row center>
+        <ion-col width-100>
+          <button ion-button full (tap)="PlusListItem()">Hinzufügen</button>
 
-    </ion-list>
-  </ion-scroll>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+ 
 
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <div style=" display: flex;">
-      <button ion-button full style="margin-right:5px;" (tap)="PlusListItem()">Hinzufügen</button>
-      <!--<button ion-button full (tap)="MinusListItem()">Löschen</button>-->
-    </div>
-  </ion-toolbar>
-</ion-footer>
