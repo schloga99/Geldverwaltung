@@ -3,24 +3,24 @@ import { NavController } from 'ionic-angular';
 import { MyApp } from '../../../src/app/app.component';
 import { GlobalVars } from "../../providers/globals";
 import { MainPage } from '../Main/Main';
+import { ToastController } from 'ionic-angular';
+
 
 @Component({
     selector: 'page-Details',
     templateUrl: 'Details.html'
+    
 })
 export class DetailsPage implements OnInit {
 
     ueberschrift: string;
     betrag: number;
     kommentar: string;
-
-    constructor(public navCtrl: NavController, private globalvar: GlobalVars) {
+    showFooter: boolean = false;
+    constructor(private toastCtrl: ToastController,public navCtrl: NavController, private globalvar: GlobalVars) {
         
     }
     ngOnInit() {
-        //this.ueberschrift = "";
-        //this.betrag = 0;
-        //this.kommentar = "";
     }
 
     onLink(url: string) {
@@ -31,8 +31,17 @@ export class DetailsPage implements OnInit {
     }
     speichern() {
         //console.log(this.ueberschrift);
-        if (typeof this.ueberschrift === 'undefined') { }
-        else if (typeof this.betrag === 'undefined') { }
+        if (typeof this.ueberschrift === 'undefined' || typeof this.betrag === 'undefined') {
+            let toast = this.toastCtrl.create({
+                message: 'Es wurde ein Feld nicht ausgefüllt',
+                duration: 3000,
+                position: 'top'
+            });
+            toast.present();
+        }
+        else if (typeof this.betrag === 'undefined') {
+           
+        }
         else {
             //console.log(this.betrag);
             //console.log(this.kommentar);

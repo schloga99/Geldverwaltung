@@ -8,10 +8,12 @@ import { DatePipe } from '@angular/common';
 import { ModalController, ViewController, AlertController } from 'ionic-angular';
 import { ModalPage } from '../ModalPage/Modal';
 import * as HighCharts from 'highcharts';
+
+
 @Component({
     selector: 'page-Main',
     templateUrl: 'Main.html'
-
+    
 })
 export class MainPage {
     budget: number;
@@ -22,11 +24,14 @@ export class MainPage {
     myDaysInmonth: number;
     einkaufsliste: Array<any> = [];
     aktlmonth: any;
+    showFooter: boolean = false;
     constructor(public modalCtrl: ModalController, public navCtrl: NavController, private globalvar: GlobalVars, public alertCtrl: AlertController) {}
+    
+
     ngOnInit() {
 
         var today = new Date();
-        var date = new Date("10/11/2009"),
+        var date = new Date(today),
             locale = "de"
             this.aktlmonth = date.toLocaleString(locale, { month: "long" });
         var month = today.getMonth();

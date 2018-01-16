@@ -1,6 +1,6 @@
 ﻿<ion-header>
-  <ion-navbar primary>
-    <ion-title>Geldverwaltung</ion-title>
+  <ion-navbar hideBackButton="true" primary>
+    <ion-title style="padding-top:0;">Geldverwaltung</ion-title>
     <ion-buttons right>
       <button large (click)="showStatistikPage()" >
         <ion-icon style="zoom:2.0;"  ios="ios-clipboard" md="md-clipboard"></ion-icon>
@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content  padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">  
+<ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">  
     <ion-item>
       <ion-label style="text-align:center; font-weight:bold; ">für den Monat {{aktlmonth}}</ion-label>
     </ion-item>
@@ -33,7 +33,6 @@
       <ion-list scroll="true">
         <ion-item-sliding *ngFor="let item of einkaufsliste; let idx=index">
           <ion-item>
-            it
             <ion-label item-start>{{item.ueberschrift}}</ion-label>
             <ion-label item-right>{{item.betrag}} €</ion-label>
           </ion-item>
@@ -43,20 +42,28 @@
             </button>
             <button ion-button icon-only (click)="deleteNote(item)" danger>
               <ion-icon name="trash"></ion-icon>
+
             </button>
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
     </ion-scroll>
-
-    <ion-grid style="bottom:0; " ion-fixed>
-      <ion-row center>
-        <ion-col width-100>
-          <button ion-button full (tap)="PlusListItem()">Hinzufügen</button>
-
-        </ion-col>
-      </ion-row>
-    </ion-grid>
- 
-
+  <ion-grid style="bottom:0; " ion-fixed>
+    <ion-row center>
+      <ion-col width-100>
+        <button ion-button full (tap)="PlusListItem()">Hinzufügen</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+<!--<ion-footer  [hidden]="showFooter">
+  <ion-toolbar>
+    
+  </ion-toolbar>
+</ion-footer>-->
+
+
+ 
+   
+
+

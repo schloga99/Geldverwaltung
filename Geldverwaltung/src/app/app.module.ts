@@ -5,6 +5,7 @@ import { MainPage } from '../pages/Main/Main';
 import { GlobalVars } from '../providers/globals';
 import { DetailsPage } from '../pages/DetailsPage/Details';
 import { ModalPage } from '../pages/ModalPage/Modal';
+import { Keyboard } from '@ionic-native/keyboard';
 @NgModule({
     declarations: [
         MyApp,

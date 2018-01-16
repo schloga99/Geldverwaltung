@@ -16,7 +16,7 @@ export class ModalPage implements OnInit {
     kommentar: string;
     einkaufslisteID: any;
     einkauf: Einkaufsliste;
-
+    showFooter: boolean = false;
     constructor(public navParams: NavParams, public navCtrl: NavController, public viewCtrl: ViewController, private globalvar: GlobalVars) {
 
     }

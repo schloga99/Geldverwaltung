@@ -1,8 +1,18 @@
 ﻿.scrollable {
-  height: 250px;
+  height: 12em;
   border: 2px solid black;
 }
-.no-scroll .scroll-content {
-  overflow: hidden;
+.keyboard-open .scroll-content {
+  margin-bottom: 0px !important;
+}
+.keyboard-open .has-footer {
+  bottom: 0;
 }
 
+body.hide-on-keyboard-open .scroll-content {
+  margin-bottom: 0px !important;
+}
+
+body.hide-on-keyboard-open .footer {
+  display: none;
+}
