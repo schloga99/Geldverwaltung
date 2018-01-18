@@ -1,6 +1,6 @@
 ﻿.no-scroll .scroll-content {
   overflow: hidden;
 }
-body.keyboard-open .has-footer {
-  bottom: 0;
+.scroll-content {
+  padding-bottom: 0 !important;
 }

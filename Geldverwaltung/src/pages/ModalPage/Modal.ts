@@ -37,7 +37,6 @@ export class ModalPage implements OnInit {
     }
     speichern() {
         
-
         if (typeof this.ueberschrift === 'undefined') { }
         else if (typeof this.betrag === 'undefined') { }
         else {

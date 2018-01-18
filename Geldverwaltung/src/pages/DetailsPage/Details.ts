@@ -4,12 +4,12 @@ import { MyApp } from '../../../src/app/app.component';
 import { GlobalVars } from "../../providers/globals";
 import { MainPage } from '../Main/Main';
 import { ToastController } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
     selector: 'page-Details',
     templateUrl: 'Details.html'
-    
+
 })
 export class DetailsPage implements OnInit {
 
@@ -17,8 +17,8 @@ export class DetailsPage implements OnInit {
     betrag: number;
     kommentar: string;
     showFooter: boolean = false;
-    constructor(private toastCtrl: ToastController,public navCtrl: NavController, private globalvar: GlobalVars) {
-        
+    constructor(public storage:Storage,private toastCtrl: ToastController, public navCtrl: NavController, private globalvar: GlobalVars) {
+
     }
     ngOnInit() {
     }
@@ -39,10 +39,10 @@ export class DetailsPage implements OnInit {
             });
             toast.present();
         }
-        else if (typeof this.betrag === 'undefined') {
-           
-        }
-        else {
+        else if (typeof this.betrag === 'undefined')
+        {}
+        else
+        {
             //console.log(this.betrag);
             //console.log(this.kommentar);
             this.globalvar.einkaufsliste.push({
@@ -50,10 +50,9 @@ export class DetailsPage implements OnInit {
                 betrag: this.betrag,
                 kommentar: this.kommentar
             });
+            this.storage.set('einkaufsliste', this.globalvar.einkaufsliste);
+            this.navCtrl.push(MainPage);
         }
-       
-        this.navCtrl.push(MainPage);
-        
     }
 }
 

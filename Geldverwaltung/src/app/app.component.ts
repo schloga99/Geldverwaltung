@@ -4,9 +4,10 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { MainPage } from '../pages/Main/Main';
 import { GlobalVars } from '../providers/globals';
 import { DetailsPage } from '../pages/DetailsPage/Details';
+import { Storage } from '@ionic/storage';
 
 @Component({
-    templateUrl: 'app.html'
+    templateUrl: 'app.html'  
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
@@ -23,6 +24,7 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             StatusBar.styleDefault();
             Splashscreen.hide();
+            
         });
         
     }

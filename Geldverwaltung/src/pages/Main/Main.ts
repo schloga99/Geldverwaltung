@@ -8,49 +8,75 @@ import { DatePipe } from '@angular/common';
 import { ModalController, ViewController, AlertController } from 'ionic-angular';
 import { ModalPage } from '../ModalPage/Modal';
 import * as HighCharts from 'highcharts';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
     selector: 'page-Main',
     templateUrl: 'Main.html'
-    
 })
 export class MainPage {
     budget: number;
     shownbudget: number = 0;
-    aktlbudget: any = 0;
     singleValue: number;
     durchschnittsbudgetmonat: any = 0;
     myDaysInmonth: number;
     einkaufsliste: Array<any> = [];
     aktlmonth: any;
     showFooter: boolean = false;
-    constructor(public modalCtrl: ModalController, public navCtrl: NavController, private globalvar: GlobalVars, public alertCtrl: AlertController) {}
-    
+    alleBeträge: number = 0;
+    storagelength: any;
+    constructor(public storage: Storage, public modalCtrl: ModalController, public navCtrl: NavController, private globalvar: GlobalVars, public alertCtrl: AlertController) {
+        
+    }
 
     ngOnInit() {
+        Promise.all([
+            this.storage.get('budget'),
+            this.storage.get('einkaufsliste'),
+            this.storage.length().then(result => {
+                this.storagelength = result;
+            })
+        ]).then(([budget, einkaufsliste]) => {
+            console.log(this.storagelength + " storage length");
+            if (this.storagelength != 0)
+            {
+                if (this.budget == null)
+                {
+                    this.globalvar.setbudget(budget);
+                    console.log(this.globalvar.budget +" globalvar budget ");
+                }
+                console.log(this.globalvar.einkaufsliste.length + " Einkaufsliste length ");
+                if (this.globalvar.einkaufsliste.length == 0)
+                {
+                    this.globalvar.seteinkaufsliste(einkaufsliste);
+                }               
+            }          
+            
+            console.log("PROMISE " + this.globalvar.budget +" "+ this.globalvar.einkaufsliste.length);
 
-        var today = new Date();
-        var date = new Date(today),
-            locale = "de"
+            var today = new Date();
+            var date = new Date(today),
+                locale = "de"
             this.aktlmonth = date.toLocaleString(locale, { month: "long" });
-        var month = today.getMonth();
-        this.myDaysInmonth = this.daysInMonth(month + 1, today.getFullYear());
-        this.budget = this.globalvar.budget;
-        this.shownbudget = this.globalvar.budget;
-        this.singleValue = this.globalvar.getbudget();
-        this.durchschnittsbudgetmonat = this.budget / this.myDaysInmonth;
-        this.durchschnittsbudgetmonat = (this.durchschnittsbudgetmonat * 100 / 100).toFixed(2);
-        console.log(this.myDaysInmonth);
-        //console.log(this.budget);
-        //console.log(this.shownbudget);
+            var month = today.getMonth();
+            this.myDaysInmonth = this.daysInMonth(month + 1, today.getFullYear());
 
-        if (isNaN(parseInt(this.budget + ''))) {
-            this.shownbudget = 0;
-            this.singleValue = 0;
-            this.durchschnittsbudgetmonat = 0;
-        }
-        this.einkaufsliste = this.globalvar.einkaufsliste;
+            this.budget = this.globalvar.budget;
+            this.setAlleBeträge();
+            this.shownbudget = this.globalvar.budget;
+            this.durchschnittsbudgetmonat = this.budget / this.myDaysInmonth;
+            this.durchschnittsbudgetmonat = (this.durchschnittsbudgetmonat * 100 / 100).toFixed(2);
+            console.log(this.myDaysInmonth);
+
+            if (isNaN(parseInt(this.budget + ''))) {
+                this.shownbudget = 0;
+                this.singleValue = 0;
+                this.durchschnittsbudgetmonat = 0;
+            }
+            console.log(this.alleBeträge);
+        });
+
+        
     }
 
     onLink(url: string) {
@@ -70,20 +96,21 @@ export class MainPage {
             this.globalvar.setbudget(this.budget);
             //console.log(this.budget + "= budgetaktuell");
             this.shownbudget = this.globalvar.getbudget();
-            this.singleValue = this.globalvar.getbudget();//noch falsch muss aktlbudget sein
+            this.setAlleBeträge();
             //console.log(this.singleValue + "= singlevalue");
             this.durchschnittsbudgetmonat = this.budget / this.myDaysInmonth;
+            this.storage.set('budget', this.globalvar.budget);
         }
+
 
 
     }
     showStatistikPage() {
-        
+
     }
 
     PlusListItem() {
         this.navCtrl.push(DetailsPage);
-
     }
 
 
@@ -136,21 +163,46 @@ export class MainPage {
         //        }
         //    ]
         //});
-
         //prompt.present();
 
         let contactModal = this.modalCtrl.create(ModalPage, { Id: idx });
+        contactModal.onDidDismiss(() => {
+            this.setAlleBeträge();
+        });
         contactModal.present();
 
     }
 
     deleteNote(note) {
 
-        let index = this.einkaufsliste.indexOf(note);
+        let index = this.globalvar.einkaufsliste.indexOf(note);
 
         if (index > -1) {
-            this.einkaufsliste.splice(index, 1);
+            this.globalvar.einkaufsliste.splice(index, 1);
         }
+        this.setAlleBeträge();
+
+    }
+
+    setAlleBeträge() {
+        this.einkaufsliste = this.globalvar.einkaufsliste;
+        this.storage.set('einkaufsliste', this.globalvar.einkaufsliste);
+        this.alleBeträge = 0;
+        for (var i = 0; i < this.einkaufsliste.length; i++) {
+            this.alleBeträge += parseInt(this.einkaufsliste[i].betrag);
+        }
+        this.singleValue = this.globalvar.getbudget() - this.alleBeträge;
+    }
+    ionViewCanLeave() {
+        this.storage.set('einkaufsliste', this.globalvar.einkaufsliste);
+        console.log(this.globalvar.einkaufsliste.length+" lenght canleave")
+        this.storage.set('budget', this.globalvar.budget);      
+        console.log("Looks like I'm about to leave canLeave");
+    }
+    ionViewWillUnload() {
+        this.storage.set('einkaufsliste', this.globalvar.einkaufsliste);
+        this.storage.set('budget', this.globalvar.budget);
+        console.log("Looks like I'm about to leave willunload");
     }
 }
 

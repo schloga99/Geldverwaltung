@@ -4,10 +4,11 @@ import { Einkaufsliste } from "../pages/Main/Einkaufsliste";
 @Injectable()
 export class GlobalVars {
     budget: number;
-    aktlbudget: number =0;
+
     einkaufsliste: Einkaufsliste[] = [];
+
     constructor() {
-        
+
     }
     public setbudget(value) {
         this.budget = value;
@@ -15,10 +16,10 @@ export class GlobalVars {
     public getbudget() {
         return this.budget;
     }
-    public setaktbudget(value) {
-        this.aktlbudget = value;
+    public seteinkaufsliste(value) {
+        this.einkaufsliste = value;
     }
-    public getaktbudget() {
-        return this.aktlbudget;
+    public geteinkaufsliste() {
+        return this.einkaufsliste;
     }
 }

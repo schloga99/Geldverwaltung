@@ -5,7 +5,11 @@ import { MainPage } from '../pages/Main/Main';
 import { GlobalVars } from '../providers/globals';
 import { DetailsPage } from '../pages/DetailsPage/Details';
 import { ModalPage } from '../pages/ModalPage/Modal';
-import { Keyboard } from '@ionic-native/keyboard';
+import { Storage } from '@ionic/storage';
+
+export function provideStorage() {
+    return new Storage(['sqlite', 'websql', 'indexeddb'], { name: 'database' });
+}
 @NgModule({
     declarations: [
         MyApp,
@@ -15,8 +19,7 @@ import { Keyboard } from '@ionic-native/keyboard';
     ],
     imports: [
         IonicModule.forRoot(MyApp)
-
-
+       
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -25,6 +28,7 @@ import { Keyboard } from '@ionic-native/keyboard';
         DetailsPage,
         ModalPage
     ],
-    providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, GlobalVars]
+    providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, GlobalVars,
+        { provide: Storage, useFactory: provideStorage }, Storage]
 })
 export class AppModule { }
