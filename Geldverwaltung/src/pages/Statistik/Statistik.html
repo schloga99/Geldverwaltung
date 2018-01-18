@@ -1,1 +1,62 @@
-﻿<div id="container" style="display: block;"></div>
+﻿<ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
+  <ion-item>
+    <button ion-button  full (click)="speichern()">Aktuelle Daten für diesen Monat speichern</button>
+  </ion-item>
+  
+  <ion-scroll class="scrollable" scrollY="true">
+    <ion-list scroll="true">
+      <ion-item-sliding *ngFor="let item of monatsuebersicht; let idx=index">
+        <ion-item>
+          <ion-label item-start>{{item.month}}</ion-label>
+          <ion-label item-right>{{item.year}}</ion-label>
+        </ion-item>
+        <ion-item-options>
+          <button ion-button icon-only (click)="showNote(item, idx)" light>
+            <ion-icon name="paper"></ion-icon>
+          </button>
+          <button ion-button icon-only (click)="deleteNote(item)" danger>
+            <ion-icon name="trash"></ion-icon>
+
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-scroll>
+  <br /> 
+  <ion-item> 
+    <ion-label item-start>{{aktluebersicht.month}} {{aktluebersicht.year}}</ion-label>
+    <ion-label item-right>{{budget}}</ion-label> 
+  </ion-item>
+
+  <ion-scroll class="scrollable" scrollY="true">
+    <ion-list scroll="true">
+      <ion-item-sliding *ngFor="let item of aktluebersicht.einkaufsliste; let idx=index">
+      <ion-item> 
+        <ion-label item-start>{{item.ueberschrift}}</ion-label> 
+        <ion-label item-right>{{item.betrag}} €</ion-label> 
+        </ion-item>
+        <ion-item-options>
+          <button ion-button icon-only (click)="showKommentar(item, idx)" light>
+            <ion-icon name="paper"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-scroll>
+
+
+
+
+
+
+
+
+  
+  <ion-grid no-padding ion-fixed style="bottom:0; ">
+    <ion-row>
+      <ion-col width-100>
+        <button ion-button full (click)="zurueck()">Zurück</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

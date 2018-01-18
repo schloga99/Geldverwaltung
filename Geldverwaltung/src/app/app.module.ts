@@ -6,7 +6,7 @@ import { GlobalVars } from '../providers/globals';
 import { DetailsPage } from '../pages/DetailsPage/Details';
 import { ModalPage } from '../pages/ModalPage/Modal';
 import { Storage } from '@ionic/storage';
-
+import { StatistikPage } from '../pages/Statistik/Statistik';
 export function provideStorage() {
     return new Storage(['sqlite', 'websql', 'indexeddb'], { name: 'database' });
 }
@@ -15,7 +15,8 @@ export function provideStorage() {
         MyApp,
         MainPage,
         DetailsPage,
-        ModalPage
+        ModalPage,
+        StatistikPage
     ],
     imports: [
         IonicModule.forRoot(MyApp)
@@ -26,7 +27,8 @@ export function provideStorage() {
         MyApp,
         MainPage,
         DetailsPage,
-        ModalPage
+        ModalPage,
+        StatistikPage
     ],
     providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, GlobalVars,
         { provide: Storage, useFactory: provideStorage }, Storage]

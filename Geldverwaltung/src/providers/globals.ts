@@ -1,12 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
 import { Einkaufsliste } from "../pages/Main/Einkaufsliste";
-
+import { Monatsübersicht } from "../pages/Statistik/Monatsübersicht";
 @Injectable()
 export class GlobalVars {
     budget: number;
-
+    monatsübersicht: Monatsübersicht[] = [];
     einkaufsliste: Einkaufsliste[] = [];
 
+   
     constructor() {
 
     }
@@ -22,4 +23,11 @@ export class GlobalVars {
     public geteinkaufsliste() {
         return this.einkaufsliste;
     }
+    public setmonatsübersicht(value) {
+        this.monatsübersicht = value;
+    }
+    public getmonatsübersicht() {
+        return this.monatsübersicht;
+    }
 }
+

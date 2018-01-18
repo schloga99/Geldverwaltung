@@ -7,8 +7,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ModalController, ViewController, AlertController } from 'ionic-angular';
 import { ModalPage } from '../ModalPage/Modal';
-import * as HighCharts from 'highcharts';
 import { Storage } from '@ionic/storage';
+import { StatistikPage } from '../Statistik/Statistik';
+
 
 @Component({
     selector: 'page-Main',
@@ -25,6 +26,8 @@ export class MainPage {
     showFooter: boolean = false;
     alleBeträge: number = 0;
     storagelength: any;
+    month: any;
+    year: any;
     constructor(public storage: Storage, public modalCtrl: ModalController, public navCtrl: NavController, private globalvar: GlobalVars, public alertCtrl: AlertController) {
         
     }
@@ -33,11 +36,13 @@ export class MainPage {
         Promise.all([
             this.storage.get('budget'),
             this.storage.get('einkaufsliste'),
+            this.storage.get('monatsübersicht'),
             this.storage.length().then(result => {
                 this.storagelength = result;
             })
-        ]).then(([budget, einkaufsliste]) => {
+        ]).then(([budget, einkaufsliste, monatsübersicht]) => {
             console.log(this.storagelength + " storage length");
+ 
             if (this.storagelength != 0)
             {
                 if (this.budget == null)
@@ -49,17 +54,23 @@ export class MainPage {
                 if (this.globalvar.einkaufsliste.length == 0)
                 {
                     this.globalvar.seteinkaufsliste(einkaufsliste);
-                }               
+                }
+                if (this.globalvar.monatsübersicht == null)
+                {
+                    this.globalvar.setmonatsübersicht(monatsübersicht);
+                }
             }          
-            
-            console.log("PROMISE " + this.globalvar.budget +" "+ this.globalvar.einkaufsliste.length);
-
             var today = new Date();
             var date = new Date(today),
-                locale = "de"
+                locale = "de";
             this.aktlmonth = date.toLocaleString(locale, { month: "long" });
-            var month = today.getMonth();
-            this.myDaysInmonth = this.daysInMonth(month + 1, today.getFullYear());
+            this.month = today.getMonth();
+            this.year = today.getFullYear();
+            console.log(this.month + " " + this.year);
+            this.myDaysInmonth = this.daysInMonth(this.month + 1, today.getFullYear());
+
+            console.log("PROMISE " + this.globalvar.budget +" "+ this.globalvar.einkaufsliste.length);
+
 
             this.budget = this.globalvar.budget;
             this.setAlleBeträge();
@@ -74,7 +85,8 @@ export class MainPage {
                 this.durchschnittsbudgetmonat = 0;
             }
             console.log(this.alleBeträge);
-        });
+            });
+        
 
         
     }
@@ -106,7 +118,7 @@ export class MainPage {
 
     }
     showStatistikPage() {
-
+        this.navCtrl.push(StatistikPage);
     }
 
     PlusListItem() {
@@ -196,7 +208,7 @@ export class MainPage {
     ionViewCanLeave() {
         this.storage.set('einkaufsliste', this.globalvar.einkaufsliste);
         console.log(this.globalvar.einkaufsliste.length+" lenght canleave")
-        this.storage.set('budget', this.globalvar.budget);      
+        this.storage.set('budget', this.globalvar.budget);
         console.log("Looks like I'm about to leave canLeave");
     }
     ionViewWillUnload() {
