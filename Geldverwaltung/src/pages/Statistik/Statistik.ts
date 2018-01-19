@@ -50,7 +50,7 @@ export class StatistikPage implements OnInit {
             });
         }      
         //this.monthFull = "february";
-        //this.year = 2021;  
+          //this.year = 2021;
         
         this.helplist = [];
 
@@ -102,13 +102,33 @@ export class StatistikPage implements OnInit {
     }
 
     deleteNote(note) {
-        let index = this.globalvar.monatsübersicht.indexOf(note);
+        let alert = this.alertCtrl.create({
+            title: 'Löschen?',
+            message: 'Sind sie wirklich sicher, dass sie diesen Eintrag löschen wollen?',
+            buttons: [
+                {
+                    text: 'Nein',
+                    role: 'cancel',
+                    handler: () => {
+                        //donothing
+                    }
+                },
+                {
+                    text: 'Ja',
+                    handler: () => {
+                        console.log('löschen');
+                        let index = this.globalvar.monatsübersicht.indexOf(note);
 
-        if (index > -1) {
-            this.globalvar.monatsübersicht.splice(index, 1);
-        }
-        this.monatsuebersicht = this.globalvar.getmonatsübersicht();
-        this.storage.set('monatsübersicht', this.globalvar.monatsübersicht);
+                        if (index > -1) {
+                            this.globalvar.monatsübersicht.splice(index, 1);
+                        }
+                        this.monatsuebersicht = this.globalvar.getmonatsübersicht();
+                        this.storage.set('monatsübersicht', this.globalvar.monatsübersicht);
+                    }
+                }
+            ]
+        });
+        alert.present();      
     }
     showNote(item, idx) {        
         this.aktluebersicht = this.monatsuebersicht[idx];        
