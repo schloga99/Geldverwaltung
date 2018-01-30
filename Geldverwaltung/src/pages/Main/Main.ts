@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MyApp } from '../../../src/app/app.component';
 import { GlobalVars } from "../../providers/globals";
@@ -9,14 +9,14 @@ import { ModalController, ViewController, AlertController } from 'ionic-angular'
 import { ModalPage } from '../ModalPage/Modal';
 import { Storage } from '@ionic/storage';
 import { StatistikPage } from '../Statistik/Statistik';
-
+import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'page-Main',
     templateUrl: 'Main.html'
 })
 export class MainPage {
-    budget: number;
+    budget: number=0;
     shownbudget: number = 0;
     singleValue: number;
     durchschnittsbudgetmonat: any = 0;
@@ -28,6 +28,7 @@ export class MainPage {
     storagelength: any;
     month: any;
     year: any;
+
     constructor(public storage: Storage, public modalCtrl: ModalController, public navCtrl: NavController, private globalvar: GlobalVars, public alertCtrl: AlertController) {
         
     }
@@ -45,6 +46,10 @@ export class MainPage {
  
             if (this.storagelength != 0)
             {
+              if (this.budget == undefined) {
+                this.globalvar.setbudget(budget);
+                console.log(this.globalvar.budget + " globalvar budget ");
+              }
                 if (this.budget == null)
                 {
                     this.globalvar.setbudget(budget);
@@ -98,25 +103,22 @@ export class MainPage {
         return new Date(year, month, 0).getDate();
     }
 
-    onchangebudget() {
-        if (isNaN(parseInt(this.budget + ''))) {
-            this.shownbudget = 0;
-            this.singleValue = 0;
-            this.durchschnittsbudgetmonat = 0;
-        }
-        else {
-            this.globalvar.setbudget(this.budget);
-            //console.log(this.budget + "= budgetaktuell");
-            this.shownbudget = this.globalvar.getbudget();
-            this.setAlleBeträge();
-            //console.log(this.singleValue + "= singlevalue");
-            this.durchschnittsbudgetmonat = this.budget / this.myDaysInmonth;
-            this.storage.set('budget', this.globalvar.budget);
-        }
-
-
-
-    }
+    //onchangebudget() {
+    //    if (isNaN(parseInt(this.budget + ''))) {
+    //        this.shownbudget = 0;
+    //        this.singleValue = 0;
+    //        this.durchschnittsbudgetmonat = 0;
+    //    }
+    //    else {
+    //        this.globalvar.setbudget(this.budget);
+    //        //console.log(this.budget + "= budgetaktuell");
+    //        this.shownbudget = this.globalvar.getbudget();
+    //        this.setAlleBeträge();
+    //        //console.log(this.singleValue + "= singlevalue");
+    //        this.durchschnittsbudgetmonat = this.budget / this.myDaysInmonth;
+    //        this.storage.set('budget', this.globalvar.budget);
+    //    }
+    //}
     showStatistikPage() {
         this.navCtrl.push(StatistikPage);
     }
@@ -201,7 +203,12 @@ export class MainPage {
         this.storage.set('einkaufsliste', this.globalvar.einkaufsliste);
         this.alleBeträge = 0;
         for (var i = 0; i < this.einkaufsliste.length; i++) {
+          if (this.einkaufsliste[i].plusminus == true) {
+            this.alleBeträge -= parseInt(this.einkaufsliste[i].betrag);
+          } else {
             this.alleBeträge += parseInt(this.einkaufsliste[i].betrag);
+          }
+            
         }
         this.singleValue = this.globalvar.getbudget() - this.alleBeträge;
     }
@@ -216,5 +223,6 @@ export class MainPage {
         this.storage.set('budget', this.globalvar.budget);
         console.log("Looks like I'm about to leave willunload");
     }
+    
 }
 

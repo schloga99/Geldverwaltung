@@ -1,9 +1,9 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Einkaufsliste } from "../pages/Main/Einkaufsliste";
 import { Monatsübersicht } from "../pages/Statistik/Monatsübersicht";
 @Injectable()
 export class GlobalVars {
-    budget: number;
+    budget: number=0;
     monatsübersicht: Monatsübersicht[] = [];
     einkaufsliste: Einkaufsliste[] = [];
 

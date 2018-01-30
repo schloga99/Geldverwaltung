@@ -1,9 +1,9 @@
-﻿<ion-header>
+<ion-header>
   <ion-navbar hideBackButton="true" primary>
     <ion-title style="padding-top:0;">Geldverwaltung</ion-title>
     <ion-buttons right>
-      <button large (click)="showStatistikPage()" >
-        <ion-icon style="zoom:2.0;"  ios="ios-clipboard" md="md-clipboard"></ion-icon>
+      <button large (click)="showStatistikPage()">
+        <ion-icon style="zoom:2.0;" ios="ios-clipboard" md="md-clipboard"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -11,13 +11,13 @@
 
 <ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
   <ion-item>
-    <ion-label style="text-align:center; font-weight:bold; ">für den Monat {{aktlmonth}}</ion-label>
+    <ion-label style="text-align:center; font-weight:bold;font-size:30px ">{{aktlmonth}}</ion-label>
   </ion-item>
-  <ion-row>
+  <!--<ion-row>
     <ion-col width-40>
       <ion-item>
-        <ion-label stacked>Budget:</ion-label>
-        <ion-input placeholder="Budgeteingabe" type="number" [(ngModel)]="budget" (ngModelChange)="onchangebudget()" value=""></ion-input>
+        <ion-label stacked>Betrag:</ion-label>
+        <ion-input placeholder="Betragseingabe" type="number" [(ngModel)]="budget" (ngModelChange)="onchangebudget()" value=""></ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -26,15 +26,21 @@
       <ion-label range-left>0</ion-label>
       <ion-label range-right>{{shownbudget | number:'.2'}} €</ion-label>
     </ion-range>
+
+  </ion-item>-->
+  <ion-item no-lines text-wrap style="text-align:center" >
+    <b style="font-size:40px;">{{singleValue | number:'.2'}} € </b>
+
   </ion-item>
-  <ion-label id="budgetmonth">Übriges Budget für diesen Monat: {{singleValue | number:'.2'}} €</ion-label>
-  <ion-label id="budgetday">Ø Budget pro Tag für diesen Monat: {{durchschnittsbudgetmonat | number:'.2' }} €</ion-label>
+  <!--<ion-label id="budgetday">Ø Budget pro Tag für diesen Monat: {{durchschnittsbudgetmonat | number:'.2' }} €</ion-label>-->
 
   <ion-scroll class="scrollable" scrollY="true">
     <ion-list scroll="true">
       <ion-item-sliding *ngFor="let item of einkaufsliste; let idx=index">
         <ion-item>
-          <ion-label item-start>{{item.ueberschrift}}</ion-label>
+          <ion-label [hidden]="!item.plusminus" ><ion-icon name="add"></ion-icon></ion-label>
+          <ion-label [hidden]="item.plusminus"><ion-icon name="remove"></ion-icon></ion-label>
+          <ion-label >{{item.ueberschrift}}</ion-label>
           <ion-label item-right>{{item.betrag}} €</ion-label>
         </ion-item>
         <ion-item-options>

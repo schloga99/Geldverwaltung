@@ -1,4 +1,4 @@
-﻿import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { MainPage } from '../pages/Main/Main';
@@ -31,6 +31,11 @@ export function provideStorage() {
         StatistikPage
     ],
     providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, GlobalVars,
-        { provide: Storage, useFactory: provideStorage }, Storage]
+      { provide: Storage, useFactory: provideStorage }, Storage,
+      {
+        provide: LOCALE_ID,
+        useValue: 'de-DE'
+      },
+    ]
 })
 export class AppModule { }

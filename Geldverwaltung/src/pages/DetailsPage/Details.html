@@ -1,13 +1,15 @@
-﻿<ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
+<ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
 
   <!--<span padding ion-fixed style="height: 100%; width: 100%">-->
     <ion-title style="padding-top:0.3em; padding-left:0.3em;">Listeintrag</ion-title>
+  <button style="width:48%" (click)="plus()" ion-button></button>
+  <button style="width:48%" (click)="minus" ion-button><ion-icon name="remove"></ion-icon></button>
     <ion-item>
       <ion-label style="font-size: medium" color="dark" stacked>Überschrift:</ion-label>
       <ion-input Placeholder="Darf nicht leer sein" type="text" [(ngModel)]="ueberschrift"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label style="font-size: medium" color="dark" stacked>Betrag des Einkaufs in Euro: </ion-label>
+      <ion-label style="font-size: medium" color="dark" stacked>Betrag in Euro: </ion-label>
       <ion-input Placeholder="Darf nicht leer sein" [(ngModel)]="betrag" type="number"></ion-input>
     </ion-item>
     <ion-item no-lines>

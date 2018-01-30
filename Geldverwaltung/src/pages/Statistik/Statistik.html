@@ -1,9 +1,9 @@
-﻿<ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
+<ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
   <ion-item>
-    <button ion-button  full (click)="speichern()">Aktuelle Daten für diesen Monat speichern</button>
+    <button ion-button full (click)="speichern()">Aktuelle Daten für diesen Monat speichern</button>
   </ion-item>
-  
-  <ion-scroll class="scrollable" scrollY="true">
+
+  <ion-scroll class="scrollable" scrollY="true" style="height: 15em;">
     <ion-list scroll="true">
       <ion-item-sliding *ngFor="let item of monatsuebersicht; let idx=index">
         <ion-item>
@@ -22,18 +22,31 @@
       </ion-item-sliding>
     </ion-list>
   </ion-scroll>
-  <br /> 
-  <ion-item> 
+  <br />
+  <ion-item>
     <ion-label item-start>{{aktluebersicht.month}} {{aktluebersicht.year}}</ion-label>
-    <ion-label item-right>{{budget}}</ion-label> 
   </ion-item>
-
+  <ion-item>
+    <ion-label item-start>{{anzeigeverbrauchtesgeldtext}}</ion-label>
+    <ion-label item-right>{{budgetverbraucht}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label item-start>{{Ausgabenanzeige}}</ion-label>
+    <ion-label item-right>{{budgetverbraucht}}</ion-label>
+  </ion-item>
+  <ion-item no-lines style="font-weight:bold">
+    <ion-label item-start>{{uebrigesgeldtext}}</ion-label>
+    <ion-label item-right>{{uebrigesbudget}}</ion-label>
+  </ion-item>
+  <br />
   <ion-scroll class="scrollable" scrollY="true">
     <ion-list scroll="true">
       <ion-item-sliding *ngFor="let item of aktluebersicht.einkaufsliste; let idx=index">
-      <ion-item> 
-        <ion-label item-start>{{item.ueberschrift}}</ion-label> 
-        <ion-label item-right>{{item.betrag}} €</ion-label> 
+        <ion-item>
+          <ion-label [hidden]="!item.plusminus"><ion-icon name="add"></ion-icon></ion-label>
+          <ion-label [hidden]="item.plusminus"><ion-icon name="remove"></ion-icon></ion-label>
+          <ion-label item-start>{{item.ueberschrift}}</ion-label>
+          <ion-label item-right>{{item.betrag}} €</ion-label>
         </ion-item>
         <ion-item-options>
           <button ion-button icon-only (click)="showKommentar(item, idx)" light>
@@ -46,13 +59,7 @@
 
 
 
-
-
-
-
-
-  
-  <ion-grid no-padding ion-fixed style="bottom:0; ">
+  <ion-grid no-padding>
     <ion-row>
       <ion-col width-100>
         <button ion-button full (click)="zurueck()">Zurück</button>

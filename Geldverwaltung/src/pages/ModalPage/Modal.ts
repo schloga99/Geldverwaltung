@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, ViewController, NavParams } from 'ionic-angular';
 import { MyApp } from '../../../src/app/app.component';
 import { GlobalVars } from "../../providers/globals";
@@ -21,7 +21,7 @@ export class ModalPage implements OnInit {
 
     }
     ngOnInit() {
-        
+       
         this.einkaufslisteID = this.navParams.get('Id');
         this.einkauf = this.globalvar.einkaufsliste[this.einkaufslisteID];
         this.ueberschrift = this.einkauf.ueberschrift;
@@ -32,7 +32,7 @@ export class ModalPage implements OnInit {
     onLink(url: string) {
         window.open(url);
     }
-    zurueck() {
+    Abbrechen() {
         this.viewCtrl.dismiss();
     }
     speichern() {
