@@ -11,7 +11,7 @@
 
 <ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
   <ion-item>
-    <ion-label style="text-align:center; font-weight:bold;font-size:30px ">{{aktlmonth}}</ion-label>
+    <ion-label style="text-align:center; font-weight:bold;font-size:200% ">{{aktlmonth}}</ion-label>
   </ion-item>
   <!--<ion-row>
     <ion-col width-40>
@@ -29,7 +29,7 @@
 
   </ion-item>-->
   <ion-item no-lines text-wrap style="text-align:center" >
-    <b style="font-size:40px;">{{singleValue | number:'.2'}} € </b>
+    <b style="font-size:300%;">{{singleValue | number:'.2'}} € </b>
 
   </ion-item>
   <!--<ion-label id="budgetday">Ø Budget pro Tag für diesen Monat: {{durchschnittsbudgetmonat | number:'.2' }} €</ion-label>-->
@@ -44,7 +44,7 @@
           <ion-label item-right>{{item.betrag}} €</ion-label>
         </ion-item>
         <ion-item-options>
-          <button ion-button icon-only (click)="showNote(item, idx)" light>
+          <button  ion-button icon-only (click)="showNote(item, idx)" light>
             <ion-icon name="paper"></ion-icon>
           </button>
           <button ion-button icon-only (click)="deleteNote(item)" danger>
@@ -55,10 +55,12 @@
       </ion-item-sliding>
     </ion-list>
   </ion-scroll>
+    <button  style="left:0; width:100%;" (click)="clearDataListofMonth()" ion-button >Liste löschen</button>
+
   <ion-grid no-padding style="bottom:0; " ion-fixed>
     <ion-row center>
       <ion-col width-100>
-        <button ion-button full (tap)="PlusListItem()">Hinzufügen</button>
+        <button medium  ion-button full (tap)="PlusListItem()">Listeneintrag hinzufügen</button>
       </ion-col>
     </ion-row>
   </ion-grid>

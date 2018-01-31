@@ -21,11 +21,22 @@ export class StatistikPage implements OnInit {
   constructor(public alertCtrl: AlertController, public storage: Storage, private toastCtrl: ToastController, public navCtrl: NavController, private globalvar: GlobalVars) {
 
   }
+  storagelength: any;
   ngOnInit() {
-    this.storage.get('monatsübersicht').then((val) => {
-      this.monatsuebersicht = val;
-    });
-  }
+    Promise.all([
+      this.storage.get('monatsübersicht'),
+      this.storage.length().then(result => {
+        this.storagelength = result;
+      })
+    ]).then(([monatsübersicht]) => {
+      this.storage.get('monatsübersicht').then((val) => {
+        this.monatsuebersicht = val;
+        console.log(val);
+
+      });
+      this.speichern();
+    })
+}
 
   onLink(url: string) {
     window.open(url);
@@ -92,8 +103,9 @@ export class StatistikPage implements OnInit {
 
     this.storage.set('monatsübersicht', this.globalvar.monatsübersicht);
   }
-  
+
   zurueck() {
+    this.speichern();
     this.navCtrl.push(MainPage);
   }
 
@@ -107,17 +119,16 @@ export class StatistikPage implements OnInit {
           handler: () => {
             console.log('löschen');
             let index = this.globalvar.monatsübersicht.indexOf(note);
-
-            if (index > -1) {
+            console.log(index);
+            if (index > -2) {
               this.globalvar.monatsübersicht.splice(index, 1);
             }
             this.monatsuebersicht = this.globalvar.getmonatsübersicht();
             this.storage.set('monatsübersicht', this.globalvar.monatsübersicht);
-            
+
           }
         },
         {
-
           text: 'Nein',
           role: 'cancel',
           handler: () => {
@@ -131,38 +142,42 @@ export class StatistikPage implements OnInit {
   budgetverbraucht: any;
   uebrigesbudget: any;
   uebrigesgeldtext: string;
-  Einnahmen: number=0;
+  Einnahmen: any;
   anzeigeverbrauchtesgeldtext: string;
   Ausgabenanzeige: string;
+
   showNote(item, idx) {
     this.aktluebersicht = this.monatsuebersicht[idx];
     this.budgetverbraucht = 0;
+    this.Einnahmen = 0;
     for (var i = 0; i < item.einkaufsliste.length; i++) {
-      if (item.einkaufsliste[i].plusminus == true) {
+      if (item.einkaufsliste[i].plusminus == false) {
         this.budgetverbraucht += parseInt(item.einkaufsliste[i].betrag);
       }
       else {
         this.Einnahmen += parseInt(item.einkaufsliste[i].betrag);
-        console.log(this.Einnahmen);
+        //console.log(this.Einnahmen);
       }
-      
+
     }
     this.Ausgabenanzeige = "Ausgaben:";
-    console.log(this.budgetverbraucht);
+    //console.log(this.budgetverbraucht);
     //console.log(this.aktluebersicht);
     this.budget = item.budget + " €";
     //console.log(this.budget);
     //console.log(item.einkaufsliste.length);
     this.anzeigeverbrauchtesgeldtext = "Einnahmen:"
-    console.log(this.Einnahmen);
+    //console.log(this.Einnahmen);
     this.uebrigesbudget = (this.Einnahmen - this.budgetverbraucht).toFixed(2) + " €";
 
-    if (this.budgetverbraucht < item.budget) {
-      this.uebrigesgeldtext = "Übrig";
+    if (this.budgetverbraucht < this.Einnahmen) {
+      this.uebrigesgeldtext = "SOLL";
     } else {
-      this.uebrigesgeldtext = "Verschuldet:";
+      this.uebrigesgeldtext = "HABEN:";
+
     }
     this.budgetverbraucht = (this.budgetverbraucht).toFixed(2) + " €";
+    this.Einnahmen = (this.Einnahmen).toFixed(2) + " €";
   }
   showKommentar(item, idx) {
     let alert = this.alertCtrl.create({
