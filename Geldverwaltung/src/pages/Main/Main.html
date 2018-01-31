@@ -2,13 +2,12 @@
   <ion-navbar hideBackButton="true" primary>
     <ion-title style="padding-top:0;">Geldverwaltung</ion-title>
     <ion-buttons right>
-      <button large (click)="showStatistikPage()">
-        <ion-icon style="zoom:2.0;" ios="ios-clipboard" md="md-clipboard"></ion-icon>
+      <button ion-button icon-right (click)="showStatistikPage()">
+        <ion-icon style="zoom:2.0;" name="stats"></ion-icon> 
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-
 <ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
   <ion-item>
     <ion-label style="text-align:center; font-weight:bold;font-size:200% ">{{aktlmonth}}</ion-label>
@@ -28,7 +27,7 @@
     </ion-range>
 
   </ion-item>-->
-  <ion-item no-lines text-wrap style="text-align:center" >
+  <ion-item no-lines text-wrap style="text-align:center">
     <b style="font-size:300%;">{{singleValue | number:'.2'}} € </b>
 
   </ion-item>
@@ -38,13 +37,13 @@
     <ion-list scroll="true">
       <ion-item-sliding *ngFor="let item of einkaufsliste; let idx=index">
         <ion-item>
-          <ion-label [hidden]="!item.plusminus" ><ion-icon name="add"></ion-icon></ion-label>
+          <ion-label [hidden]="!item.plusminus"><ion-icon name="add"></ion-icon></ion-label>
           <ion-label [hidden]="item.plusminus"><ion-icon name="remove"></ion-icon></ion-label>
-          <ion-label >{{item.ueberschrift}}</ion-label>
+          <ion-label>{{item.ueberschrift}}</ion-label>
           <ion-label item-right>{{item.betrag}} €</ion-label>
         </ion-item>
         <ion-item-options>
-          <button  ion-button icon-only (click)="showNote(item, idx)" light>
+          <button ion-button icon-only (click)="showNote(item, idx)" light>
             <ion-icon name="paper"></ion-icon>
           </button>
           <button ion-button icon-only (click)="deleteNote(item)" danger>
@@ -55,20 +54,13 @@
       </ion-item-sliding>
     </ion-list>
   </ion-scroll>
-    <button  style="left:0; width:100%;" (click)="clearDataListofMonth()" ion-button >Liste löschen</button>
+  <button style="left:0; width:100%;" (click)="clearDataListofMonth()" ion-button>Liste löschen</button>
 
-  <ion-grid no-padding style="bottom:0; " ion-fixed>
-    <ion-row center>
-      <ion-col width-100>
-        <button medium  ion-button full (tap)="PlusListItem()">Listeneintrag hinzufügen</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+
+  <button style="left:0; width:100%;" ion-button  (tap)="PlusListItem()">Listeneintrag hinzufügen</button>
 
 </ion-content>
 
 
- 
-   
 
 

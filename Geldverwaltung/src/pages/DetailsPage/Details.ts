@@ -90,8 +90,9 @@ export class DetailsPage implements OnInit {
   minus() {
     this.plusminus = false;
     this.buttonColor1 = '#55acee';
-    this.buttonColor2 = '#FF0000';
+    this.buttonColor2 = '#EE0000';
     this.clicked = true;
+
   }
 }
 

@@ -2,9 +2,11 @@
 
   <!--<span padding ion-fixed style="height: 100%; width: 100%">-->
     <ion-title style="padding-top:0.3em; padding-left:0.3em;">Listeneintrag</ion-title>
+  <br />
   <button  [ngStyle]="{'background-color': buttonColor1}" style="width:48%" (click)="plus()" ion-button><ion-icon name="add"></ion-icon></button>
   <button  [ngStyle]="{'background-color': buttonColor2}" style="width:48%" (click)="minus()" ion-button><ion-icon name="remove"></ion-icon></button>
-    <ion-item>
+  <br /> <br />
+  <ion-item>
       <ion-label style="font-size: medium" color="dark" stacked>Überschrift:</ion-label>
       <ion-input Placeholder="Darf nicht leer sein" type="text" [(ngModel)]="ueberschrift"></ion-input>
     </ion-item>
