@@ -15,9 +15,18 @@ export class StatistikPage implements OnInit {
   month: any;
   year: any;
   monthFull: any;
-  helplist: helplist[] = [];
+  //helplist: helplist[] = [];
   aktluebersicht: Array<any> = [];
   budget: any;
+
+  //Anzeigevariablen
+  budgetverbraucht: any;
+  uebrigesbudget: any;
+  uebrigesgeldtext: string;
+  Einnahmen: any;
+  anzeigeverbrauchtesgeldtext: string;
+  Ausgabenanzeige: string;
+
   constructor(public alertCtrl: AlertController, public storage: Storage, private toastCtrl: ToastController, public navCtrl: NavController, private globalvar: GlobalVars) {
 
   }
@@ -32,83 +41,80 @@ export class StatistikPage implements OnInit {
       this.storage.get('monatsübersicht').then((val) => {
         this.monatsuebersicht = val;
         console.log(val);
-
       });
-      this.speichern();
+      //this.speichern();
     })
 }
 
   onLink(url: string) {
     window.open(url);
   }
-  speichern() {
-    var today = new Date();
-    var date = new Date(today),
-      locale = "de";
-    this.monthFull = date.toLocaleString(locale, { month: "long" });
-    this.month = today.getMonth();
-    this.year = today.getFullYear();
-    //console.log(this.globalvar.budget);
-    console.log(this.globalvar.monatsübersicht.length);
-    //console.log(this.year);
-    if (this.globalvar.monatsübersicht.length == 0) {
-      this.globalvar.monatsübersicht.push({
-        budget: this.globalvar.getbudget(),
-        einkaufsliste: this.globalvar.geteinkaufsliste(),
-        month: this.monthFull,
-        year: this.year
-      });
-    }
-    //this.monthFull = "february";
-    //this.year = 2021;
+  //speichern() {
+  //  var today = new Date();
+  //  var date = new Date(today),
+  //    locale = "de";
+  //  this.monthFull = date.toLocaleString(locale, { month: "long" });
+  //  this.month = today.getMonth();
+  //  this.year = today.getFullYear();
+  //  //console.log(this.globalvar.budget);
+  //  console.log(this.globalvar.monatsübersicht.length);
+  //  //console.log(this.year);
+  //  if (this.globalvar.monatsübersicht.length == 0) {
+  //    this.globalvar.monatsübersicht.push({
+  //      budget: this.globalvar.getbudget(),
+  //      einkaufsliste: this.globalvar.geteinkaufsliste(),
+  //      month: this.monthFull,
+  //      year: this.year
+  //    });
+  //  }
+  //  //this.monthFull = "february";
+  //  //this.year = 2021;
 
-    this.helplist = [];
+  //  this.helplist = [];
 
-    for (var i = 0; i < this.globalvar.monatsübersicht.length; i++) {
-      this.helplist.push({
-        month: this.globalvar.monatsübersicht[i].month,
-        year: this.globalvar.monatsübersicht[i].year
-      });
-    }
-    console.log(this.helplist);
-    let prüfvar = 0;
+  //  for (var i = 0; i < this.globalvar.monatsübersicht.length; i++) {
+  //    this.helplist.push({
+  //      month: this.globalvar.monatsübersicht[i].month,
+  //      year: this.globalvar.monatsübersicht[i].year
+  //    });
+  //  }
+  //  console.log(this.helplist);
+  //  let prüfvar = 0;
 
-    console.log(this.helplist.length);
+  //  console.log(this.helplist.length);
 
-    for (var i = 0; i < this.helplist.length; i++) {
-      console.log(this.helplist[i].month);
-      console.log(this.monthFull);
-      if (this.helplist[i].month == this.monthFull && this.helplist[i].year == this.year) {
-        this.globalvar.monatsübersicht[i] = {
-          budget: this.globalvar.getbudget(),
-          einkaufsliste: this.globalvar.geteinkaufsliste(),
-          month: this.monthFull,
-          year: this.year
-        }
-        prüfvar = 1;
-      }
+  //  for (var i = 0; i < this.helplist.length; i++) {
+  //    console.log(this.helplist[i].month);
+  //    console.log(this.monthFull);
+  //    if (this.helplist[i].month == this.monthFull && this.helplist[i].year == this.year) {
+  //      this.globalvar.monatsübersicht[i] = {
+  //        budget: this.globalvar.getbudget(),
+  //        einkaufsliste: this.globalvar.geteinkaufsliste(),
+  //        month: this.monthFull,
+  //        year: this.year
+  //      }
+  //      prüfvar = 1;
+  //    }
 
-    }
-    if (prüfvar == 0) {
-      this.globalvar.monatsübersicht.push({
-        budget: this.globalvar.getbudget(),
-        einkaufsliste: this.globalvar.geteinkaufsliste(),
-        month: this.monthFull,
-        year: this.year
-      });
-    }
-    console.log(prüfvar + " Prüfvar");
-    this.monatsuebersicht = this.globalvar.getmonatsübersicht();
-    console.log(this.globalvar.getmonatsübersicht());
+  //  }
+  //  if (prüfvar == 0) {
+  //    this.globalvar.monatsübersicht.push({
+  //      budget: this.globalvar.getbudget(),
+  //      einkaufsliste: this.globalvar.geteinkaufsliste(),
+  //      month: this.monthFull,
+  //      year: this.year
+  //    });
+  //  }
+  //  console.log(prüfvar + " Prüfvar");
+  //  this.monatsuebersicht = this.globalvar.getmonatsübersicht();
+  //  console.log(this.globalvar.getmonatsübersicht());
 
-    this.storage.set('monatsübersicht', this.globalvar.monatsübersicht);
-  }
+  //  this.storage.set('monatsübersicht', this.globalvar.monatsübersicht);
+  //}
 
   zurueck() {
-    this.speichern();
     this.navCtrl.push(MainPage);
   }
-
   deleteNote(note) {
     let alert = this.alertCtrl.create({
       title: 'Löschen?',
@@ -139,13 +145,7 @@ export class StatistikPage implements OnInit {
     });
     alert.present();
   }
-  budgetverbraucht: any;
-  uebrigesbudget: any;
-  uebrigesgeldtext: string;
-  Einnahmen: any;
-  anzeigeverbrauchtesgeldtext: string;
-  Ausgabenanzeige: string;
-
+  
   showNote(item, idx) {
     this.aktluebersicht = this.monatsuebersicht[idx];
     this.budgetverbraucht = 0;

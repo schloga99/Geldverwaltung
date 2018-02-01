@@ -12,6 +12,7 @@
   <ion-item>
     <ion-label style="text-align:center; font-weight:bold;font-size:200% ">{{aktlmonth}}</ion-label>
   </ion-item>
+
   <!--<ion-row>
     <ion-col width-40>
       <ion-item>
@@ -25,11 +26,10 @@
       <ion-label range-left>0</ion-label>
       <ion-label range-right>{{shownbudget | number:'.2'}} €</ion-label>
     </ion-range>
-
   </ion-item>-->
+
   <ion-item no-lines text-wrap style="text-align:center">
     <b style="font-size:300%;">{{singleValue | number:'.2'}} € </b>
-
   </ion-item>
   <!--<ion-label id="budgetday">Ø Budget pro Tag für diesen Monat: {{durchschnittsbudgetmonat | number:'.2' }} €</ion-label>-->
 
@@ -48,19 +48,11 @@
           </button>
           <button ion-button icon-only (click)="deleteNote(item)" danger>
             <ion-icon name="trash"></ion-icon>
-
           </button>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
   </ion-scroll>
   <button style="left:0; width:100%;" (click)="clearDataListofMonth()" ion-button>Liste löschen</button>
-
-
   <button style="left:0; width:100%;" ion-button  (tap)="PlusListItem()">Listeneintrag hinzufügen</button>
-
 </ion-content>
-
-
-
-
