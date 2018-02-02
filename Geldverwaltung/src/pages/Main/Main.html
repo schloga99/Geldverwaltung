@@ -8,6 +8,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding no-scroll style="overflow:hidden" scroll="false" class="no-scroll">
   <ion-item>
     <ion-label style="text-align:center; font-weight:bold;font-size:200% ">{{aktlmonth}}</ion-label>
@@ -33,14 +34,14 @@
   </ion-item>
   <!--<ion-label id="budgetday">Ø Budget pro Tag für diesen Monat: {{durchschnittsbudgetmonat | number:'.2' }} €</ion-label>-->
 
-  <ion-scroll class="scrollable" scrollY="true">
-    <ion-list scroll="true">
+  <ion-scroll   class="scrollable" scrollY="true">
+    <ion-list  scroll="true">
       <ion-item-sliding *ngFor="let item of einkaufsliste; let idx=index">
-        <ion-item>
-          <ion-label [hidden]="!item.plusminus"><ion-icon name="add"></ion-icon></ion-label>
-          <ion-label [hidden]="item.plusminus"><ion-icon name="remove"></ion-icon></ion-label>
-          <ion-label>{{item.ueberschrift}}</ion-label>
-          <ion-label item-right>{{item.betrag}} €</ion-label>
+        <ion-item text-wrap>
+          <div item-left [hidden]="!item.plusminus"><ion-icon name="add"></ion-icon></div>
+          <div item-left [hidden]="item.plusminus"><ion-icon name="remove"></ion-icon></div>
+          <div>{{item.ueberschrift}}</div>
+          <div item-right>{{item.betrag}} €</div>
         </ion-item>
         <ion-item-options>
           <button ion-button icon-only (click)="showNote(item, idx)" light>

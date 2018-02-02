@@ -7,8 +7,8 @@
   <button  [ngStyle]="{'background-color': buttonColor2}" style="width:48%" (click)="minus()" ion-button><ion-icon name="remove"></ion-icon></button>
   <br /> <br />
   <ion-item>
-      <ion-label style="font-size: medium" color="dark" stacked>Überschrift:</ion-label>
-      <ion-input Placeholder="Darf nicht leer sein" type="text" [(ngModel)]="ueberschrift"></ion-input>
+      <ion-label  style="font-size: medium" color="dark" stacked>Überschrift:</ion-label>
+      <ion-input maxLength="44" Placeholder="Darf nicht leer sein" type="text" [(ngModel)]="ueberschrift"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label style="font-size: medium" color="dark" stacked>Betrag in Euro: </ion-label>
@@ -16,7 +16,7 @@
     </ion-item>
     <ion-item no-lines>
       <ion-label style="font-size: medium" color="dark" stacked>Kommentar:</ion-label>
-      <ion-textarea [(ngModel)]="kommentar" rows="9" maxLength="600"></ion-textarea>
+      <ion-textarea [(ngModel)]="kommentar" rows="9" maxLength="400"></ion-textarea>
     </ion-item>
 
   
